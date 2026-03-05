@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - MyApp</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="navbar-brand">MyApp</a>
+      <ul class="navbar-nav">
+        <li><a href="/">Home</a></li>
+        <% if (locals.user) { %>
+          <li><span class="user-info">Welcome, <%= locals.user.email %></span></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><form method="POST" action="/logout" style="display: inline;"><button type="submit" class="btn btn-secondary" style="padding: 8px 16px; margin: 0;">Logout</button></form></li>
+        <% } else { %>
+          <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container fade-in">
+    <div class="profile-info">
+      <div class="page-header">
+        <h1>Your Profile</h1>
+        <p>Manage your account information</p>
+      </div>
+
+      <p><strong>User ID:</strong> <%= user.userId %></p>
+      <p><strong>Email:</strong> <%= user.email %></p>
+
+      <div style="margin-top: 2rem;">
+        <form method="POST" action="/logout" style="display: inline-block;">
+          <button type="submit" class="btn btn-secondary">Sign Out</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

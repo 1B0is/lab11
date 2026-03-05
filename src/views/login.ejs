@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - MyApp</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="navbar-brand">MyApp</a>
+      <ul class="navbar-nav">
+        <li><a href="/">Home</a></li>
+        <% if (locals.user) { %>
+          <li><span class="user-info">Welcome, <%= locals.user.email %></span></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><form method="POST" action="/logout" style="display: inline;"><button type="submit" class="btn btn-secondary" style="padding: 8px 16px; margin: 0;">Logout</button></form></li>
+        <% } else { %>
+          <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container fade-in">
+    <div class="form-container">
+      <div class="page-header">
+        <h1>Welcome Back</h1>
+        <p>Please sign in to your account</p>
+      </div>
+
+      <% if (err) { %>
+        <div class="alert alert-danger">
+          <strong>Oops!</strong> The email or password you entered is incorrect. Please try again.
+        </div>
+      <% } %>
+
+      <% if (typeof success !== 'undefined' && success === 'registered') { %>
+        <div class="alert alert-success">
+          <strong>Success!</strong> Your test account has been created. Please sign in with your credentials.
+        </div>
+      <% } %>
+
+      <form method="POST" action="/login">
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required />
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required />
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+      </form>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #e9ecef;" />
+
+      <div style="text-align: center; margin-bottom: 1rem;">
+        <p style="color: var(--secondary-color); margin-bottom: 1rem;">New here? Create a test account below</p>
+        <form method="POST" action="/register">
+          <div class="form-group">
+            <input type="email" name="email" class="form-input" placeholder="Your email for testing" required />
+          </div>
+          <div class="form-group">
+            <input type="password" name="password" class="form-input" placeholder="Choose a password" required />
+          </div>
+          <button type="submit" class="btn btn-success" style="width: 100%;">Create Test Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
